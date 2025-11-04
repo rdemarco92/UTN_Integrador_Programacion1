@@ -51,12 +51,63 @@ def guardar_paises(paises):
             linea= f"{p['nombre']},{p['poblacion']},{p['superficie']},{p['continente']}\n"
             f.write(linea)
 
-#AYE:
+#RAMIRO:
+# AGREGAR PAIS
+def agregar_pais(paises):
+    print("\n--- Agregar nuevo país ---")
+    nombre = input("Nombre: ").strip()
+    if not nombre:
+        print("❌ El nombre no puede estar vacío.")
+        return
+    
+    try:
+        poblacion = int(input("Población: "))
+        superficie = int(input("Superficie (km²): "))
+    except ValueError:
+        print("❌ La población y superficie deben ser números enteros.")
+        return
+    
+    continente = input("Continente: ").strip()
+    if not continente:
+        print("❌ El continente no puede estar vacío.")
+        return
 
-# def agregar_paises
-# def actualizar_pais
-# def buscar_pais
+    pais = {"nombre": nombre, "poblacion": poblacion, "superficie": superficie, "continente": continente}
+    paises.append(pais)
+    guardar_paises(paises)
+    print(f"✅ País {nombre} agregado correctamente.")
+# BUSCAR PAIS
+def buscar_pais(paises):
+    termino = input("Ingrese el nombre del país a buscar: ").strip().lower()
+    resultados = [p for p in paises if termino in p["nombre"].lower()]
+    
+    if resultados:
+        print("\n--- Resultados ---")
+        mostrar_lista(resultados)
+        return resultados
+    else:
+        print("❌ No se encontraron países con ese nombre.")
+        return []
+# ACTULIZAR PAIS   
+def actualizar_pais(paises):
+    resultados = buscar_pais(paises)
+    if not resultados:
+        return
 
+    if len(resultados) > 1:
+        print("⚠ Se encontraron varios países. Especifique el nombre exacto.")
+        return
+
+    pais = resultados[0]
+    try:
+        nueva_poblacion = int(input("Nueva población: "))
+        nueva_superficie = int(input("Nueva superficie (km²): "))
+        pais["poblacion"] = nueva_poblacion
+        pais["superficie"] = nueva_superficie
+        guardar_paises(paises)
+        print("✅ Datos actualizados correctamente.")
+    except ValueError:
+        print("❌ Debe ingresar números válidos.")
 def mostrar_lista(paises):
     
     for p in paises:
