@@ -136,13 +136,38 @@ def ordenar_por_superficie(paises, descendente=False):
     paises.sort(key=obtener_superficie, reverse=descendente)
     mostrar_lista(paises)
 
-#AYE:
-# def mostrar_estadisticas
+#RAMIRO:
+
+#ESTADISTICAS
+def mostrar_estadisticas(paises):
+    if not paises:
+        print("No hay datos disponibles.")
+        return
+
+    pais_mayor = max(paises, key=lambda x: x["poblacion"])
+    pais_menor = min(paises, key=lambda x: x["poblacion"])
+    promedio_poblacion = sum(p["poblacion"] for p in paises) / len(paises)
+    promedio_superficie = sum(p["superficie"] for p in paises) / len(paises)
+
+    # Contar países por continente
+    continentes = {}
+    for p in paises:
+        c = p["continente"]
+        continentes[c] = continentes.get(c, 0) + 1
+
+    print("\n--- Estadísticas ---")
+    print(f" País con mayor población: {pais_mayor['nombre']} ({pais_mayor['poblacion']})")
+    print(f" País con menor población: {pais_menor['nombre']} ({pais_menor['poblacion']})")
+    print(f" Promedio de población: {promedio_poblacion:,.0f}")
+    print(f" Promedio de superficie: {promedio_superficie:,.0f}")
+    print("\n Cantidad de países por continente:")
+    for cont, cant in continentes.items():
+        print(f"  - {cont}: {cant}")
 
 #LUCIA 
 # def menu
 
-#AYE llamada de funciones en bucle while
+#RAMIRO llamada de funciones en bucle while
 
 #######finalizado#########
 
