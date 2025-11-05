@@ -176,10 +176,40 @@ def mostrar_estadisticas(paises):
     for cont in continentes:
         print("-", cont + ":", continentes[cont])
 
-#LUCIA 
-# def menu
+#LUCIA MENU 
+def menu():
+    paises = cargar_paises()
 
-#RAMIRO llamada de funciones en bucle while
+    while True:
+        print("\nMENÚ ")
+        print("1. Agregar país")
+        print("2. Buscar país")
+        print("3. Ordenar por nombre")
+        print("4. Ordenar por población")
+        print("5. Ordenar por superficie (descendente)")
+        print("6. Mostrar estadísticas")
+        print("7. Salir")
+
+        opcion = input("Seleccione una opción: ").strip()
+
+        match opcion:
+            case "1":
+                agregar_pais(paises)
+            case "2":
+                buscar_pais(paises)
+            case "3":
+                ordenar_por_nombre(paises)
+            case "4":
+                ordenar_por_poblacion(paises)
+            case "5":
+                ordenar_por_superficie(paises, descendente=True)
+            case "6":
+                mostrar_estadisticas(paises)
+            case "7":
+                print("Muchas gracias, hasta pronto.")
+                break
+            case _:
+                print("Opción inválida.Intente nuevamente.")
 
 #######finalizado#########
 
