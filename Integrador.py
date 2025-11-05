@@ -51,8 +51,6 @@ def guardar_paises(paises):
             linea= f"{p['nombre']},{p['poblacion']},{p['superficie']},{p['continente']}\n"
             f.write(linea)
 
-#RAMIRO:
-# AGREGAR PAIS
 def agregar_pais(paises):
     print("\n--- Agregar nuevo país ---")
     nombre = input("Nombre: ").strip()
@@ -60,12 +58,10 @@ def agregar_pais(paises):
     superficie = input("Superficie (km²): ").strip()
     continente = input("Continente: ").strip()
 
-    # Validar campos vacíos
     if nombre == "" or poblacion == "" or superficie == "" or continente == "":
         print("Error: no se permiten campos vacíos.")
         return
 
-    # Validar que los valores numéricos sean enteros
     if poblacion.isdigit() and superficie.isdigit():
         pais = {
             "nombre": nombre,
@@ -78,14 +74,12 @@ def agregar_pais(paises):
         print("País agregado correctamente.")
     else:
         print("Error: la población y la superficie deben ser números enteros.")
-# BUSCAR PAIS
 def buscar_pais(paises):
     print("\n--- Buscar país ---")
     texto = input("Ingrese el nombre del país a buscar: ").lower().strip()
     encontrados = []
 
     for p in paises:
-        # Coincidencia parcial o exacta
         if texto in p["nombre"].lower():
             encontrados.append(p)
 
@@ -98,7 +92,6 @@ def buscar_pais(paises):
     
     return encontrados
 
-# ACTUALIZAR PAIS
 def actualizar_pais(paises):
     print("\n--- Actualizar datos de un país ---")
     resultados = buscar_pais(paises)
@@ -129,9 +122,6 @@ def actualizar_pais(paises):
     else:
         print("No se pudo actualizar porque no se encontró el país.")
 
-#RAMIRO:
-
-#ESTADISTICAS
 def mostrar_estadisticas(paises):
     print("\n--- Estadísticas ---")
 
@@ -139,7 +129,6 @@ def mostrar_estadisticas(paises):
         print("No hay datos disponibles.")
         return
 
-    # Buscar país con mayor y menor población
     pais_mayor = paises[0]
     pais_menor = paises[0]
     for p in paises:
@@ -148,7 +137,6 @@ def mostrar_estadisticas(paises):
         if p["poblacion"] < pais_menor["poblacion"]:
             pais_menor = p
 
-    # Calcular promedios de población y superficie
     suma_poblacion = 0
     suma_superficie = 0
     for p in paises:
@@ -158,7 +146,6 @@ def mostrar_estadisticas(paises):
     promedio_poblacion = suma_poblacion / len(paises)
     promedio_superficie = suma_superficie / len(paises)
 
-    # Contar países por continente
     continentes = {}
     for p in paises:
         cont = p["continente"]
@@ -167,7 +154,6 @@ def mostrar_estadisticas(paises):
         else:
             continentes[cont] = 1
 
-    # Mostrar resultados
     print("País con mayor población:", pais_mayor["nombre"], "(", pais_mayor["poblacion"], ")")
     print("País con menor población:", pais_menor["nombre"], "(", pais_menor["poblacion"], ")")
     print("Promedio de población:", round(promedio_poblacion, 0))
@@ -175,8 +161,6 @@ def mostrar_estadisticas(paises):
     print("\nCantidad de países por continente:")
     for cont in continentes:
         print("-", cont + ":", continentes[cont])
-
-#LUCIA MENU 
 def menu():
     paises = cargar_paises()
 
@@ -210,6 +194,3 @@ def menu():
                 break
             case _:
                 print("Opción inválida.Intente nuevamente.")
-
-#######finalizado#########
-
