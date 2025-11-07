@@ -1,45 +1,36 @@
 archivo="paises.csv"
-
+import os
 def inicializar_archivo():
-    try:
-        with open (archivo, "r", encoding="utf-8") as f:
-            pass
-        print("Archivo paises.csv encontrado")
-    except FileNotFoundError:
-        with open (archivo,"w", encoding="utf-8") as f:
+    if os.path.exists(archivo):
+        print("Archivo paises.csv encontrado.")
+    else:
+        with open(archivo, "w", encoding="utf-8") as f:
             f.write("nombre,poblacion,superficie,continente\n")
-        print("Archivo paises.csv creado correctamente")
+        print("Archivo paises.csv creado correctamente.")
 
-def cargar_paises():
+def agregar_pais(paises):
+    print("\n--- Agregar nuevo país ---")
+    nombre = input("Nombre: ").strip()
+    poblacion = input("Población: ").strip()
+    superficie = input("Superficie (km²): ").strip()
+    continente = input("Continente: ").strip()
 
-    paises=[]
+    if nombre == "" or poblacion == "" or superficie == "" or continente == "":
+        print("Error: no se permiten campos vacíos.")
+        return
 
-    try:
-        with open (archivo, "r", encoding="utf-8") as f:
-            next(f)
-            for linea in f:
-                linea=linea.strip()
-                if not linea:
-                    continue
-                partes=linea.strip(",")
-                if len (partes) !=4:
-                    print(f"Linea con formato incorrecto: {linea}")
-                    continue
-                nombre,poblacion,superficie,continente=partes
-
-                try: 
-                    pais={
-                        "nombre":nombre,
-                        "poblacion":int(poblacion),
-                        "superficie":int(superficie),
-                        "continente":continente
-                    }
-                    
-                    paises.append(pais)
-                except ValueError:
-                    print(f"Error en los datos numericos de: {nombre}")
-    except FileNotFoundError:
-        print("Archivo no encontado, se creara uno nuevo al guardar")
+    if poblacion.isdigit() and superficie.isdigit():
+        pais = {
+            "nombre": nombre,
+            "poblacion": int(poblacion),
+            "superficie": int(superficie),
+            "continente": continente
+        }
+        paises.append(pais)
+        guardar_paises(paises)
+        print("País agregado correctamente.")
+    else:
+        print("Error: la población y la superficie deben ser números enteros.")
     
     return paises 
 
@@ -162,7 +153,7 @@ def mostrar_estadisticas(paises):
     for cont in continentes:
         print("-", cont + ":", continentes[cont])
 def menu():
-    paises = cargar_paises()
+    paises = agregar_pais()
 
     while True:
         print("\nMENÚ ")
@@ -194,3 +185,5 @@ def menu():
                 break
             case _:
                 print("Opción inválida.Intente nuevamente.")
+
+menu()
